@@ -45,16 +45,12 @@ jobs:
           echo "=== CURL 6 ==="
           curl -v --max-time 20 https://api.myip.com
 
-      - name: Install SSH client (usually already installed)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openssh-client
-
       - name: Test SSH connection (no key, just check handshake)
         run: |
           echo "=== SSH TEST ==="
-          ssh -vvv \
-            -o ConnectTimeout=15 \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            nice@remote-pishgaman.runflare.com -p 32490 "echo SSH_OK && hostname && uptime"
+          nc -vz remote-pishgaman.runflare.com 32490
+          nproc
+          free -h
+          df -h
+          lscpu
+
